@@ -1,5 +1,7 @@
 package bookkeeping.application.controller;
 
+import bookkeeping.application.entity.Member;
+import bookkeeping.application.service.BookkeepingDBService;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -24,15 +26,20 @@ import static java.util.Collections.singletonList;
 @RestController
 public class CommandController {
     private LineMessagingClient lineMessagingClient;
+    private BookkeepingDBService bookkeepingDBService;
+
 
     @Autowired
-    public CommandController(LineMessagingClient lineMessagingClient) {
+    public CommandController(LineMessagingClient lineMessagingClient, BookkeepingDBService bookkeepingDBService) {
         this.lineMessagingClient = lineMessagingClient;
+        this.bookkeepingDBService = bookkeepingDBService;
     }
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         TextMessageContent message = event.getMessage();
+        Member member = new Member(event.getSource().getUserId(), lineMessagingClient.getProfile(event.getSource().getUserId()).get().getDisplayName());
+        bookkeepingDBService.save(member);
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }
 
