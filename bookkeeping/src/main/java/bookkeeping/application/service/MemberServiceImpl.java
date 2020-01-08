@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookkeepingDBServiceImpl implements BookkeepingDBService {
+public class MemberServiceImpl implements MemberService {
 
     private MemberRepository memberRepository;
 
     @Autowired
-    public BookkeepingDBServiceImpl(MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
