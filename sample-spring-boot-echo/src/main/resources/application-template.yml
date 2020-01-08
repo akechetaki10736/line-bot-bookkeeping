@@ -13,13 +13,25 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-This is a template for the configuration file.
-Make a copy called `application.yml` and change the values below.
+#This is a template for the configuration file.
+#Make a copy called `application.yml` and change the values below.
 
 line.bot:
-  channel-token: 'Put Your Channel Token Here.'
-  channel-secret: 'Put Your Channel Secret Here.'
+  channel-token: Put Your Channel Token Here.
+  channel-secret: Put Your Channel Secret Here.
   handler.path: /callback
+
+spring.datasource:
+  url: jdbc:postgresql://<server-name>:5432/<database-name>
+  username: <userName>
+  password: <password>
+  platform: postgres
+  driver-class-name: org.postgresql.Driver
+
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: create
+  show-sql: true
 
 # To remove Client wire logs. Please comment out following lines.
 # See: https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html
