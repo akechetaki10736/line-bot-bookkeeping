@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class UnknowCommand extends CommandTemplate {
+public class UnknownCommand extends CommandTemplate {
 
-    public UnknowCommand() {
+    public UnknownCommand() {
         CommandHandler.commandMap.put("Unknown", (String arguments) -> this.execute(arguments));
     }
     @Override

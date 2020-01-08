@@ -13,4 +13,5 @@ public class RegisterCommand extends CommandTemplate{
     void execute(String arguments) {
         //Do action here....
     }
+
 }
