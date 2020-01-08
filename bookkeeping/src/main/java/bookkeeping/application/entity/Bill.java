@@ -2,7 +2,9 @@ package bookkeeping.application.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
@@ -16,7 +18,6 @@ public class Bill {
     private Date billTime;
     @EmbeddedId
     private PKOfBill pkOfBill;
-
 
     public Bill( String item, Integer price, String comment, Date billTime, PKOfBill pkOfBill) {
         this.item = item;

@@ -1,6 +1,6 @@
 package bookkeeping.application.controller;
 
-import bookkeeping.application.entity.Member;
+import bookkeeping.application.command.CommandHandler;
 import bookkeeping.application.service.MemberService;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
@@ -27,19 +27,19 @@ import static java.util.Collections.singletonList;
 public class CommandController {
     private LineMessagingClient lineMessagingClient;
     private MemberService memberService;
-
+    private CommandHandler comHandler;
 
     @Autowired
-    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService) {
+    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService, CommandHandler comHandler) {
         this.lineMessagingClient = lineMessagingClient;
         this.memberService = memberService;
+        this.comHandler = comHandler;
     }
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         TextMessageContent message = event.getMessage();
-        Member member = new Member(event.getSource().getUserId(), lineMessagingClient.getProfile(event.getSource().getUserId()).get().getDisplayName());
-        memberService.save(member);
+        comHandler.execute(message.getText(), "");
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }
 
