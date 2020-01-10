@@ -28,13 +28,13 @@ import static java.util.Collections.singletonList;
 public class CommandController {
     private LineMessagingClient lineMessagingClient;
     private MemberService memberService;
-    private CommandHandler comHandler;
+    private CommandHandler commandHandler;
 
     @Autowired
-    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService, CommandHandler comHandler) {
+    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService, CommandHandler commandHandler) {
         this.lineMessagingClient = lineMessagingClient;
         this.memberService = memberService;
-        this.comHandler = comHandler;
+        this.commandHandler = commandHandler;
     }
 
     @EventMapping
@@ -42,7 +42,7 @@ public class CommandController {
         TextMessageContent message = event.getMessage();
 
         if(message.getText().startsWith("!")) // It's a command
-            comHandler.execute(message.getText().split(" ")[0],event.getSource().getUserId() + " " + message.getText());
+            commandHandler.execute(message.getText().split(" ")[0],event.getSource().getUserId() + "," + message.getText());
 
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }
