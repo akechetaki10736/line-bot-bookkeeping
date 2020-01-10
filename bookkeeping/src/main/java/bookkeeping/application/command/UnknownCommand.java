@@ -4,15 +4,15 @@ package bookkeeping.application.command;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Slf4j
+@CommandMapping(commandName="Unknown")
 public class UnknownCommand extends CommandTemplate {
 
-    public UnknownCommand() {
-        CommandHandler.commandMap.put("Unknown", (String arguments) -> this.execute(arguments));
-    }
     @Override
-    void execute(String arguments) {
+    void execute(List<String> arguments) {
         log.warn("Unknown command");
     }
 }

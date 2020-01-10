@@ -14,6 +14,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -39,7 +40,10 @@ public class CommandController {
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         TextMessageContent message = event.getMessage();
-        comHandler.execute(message.getText(), "");
+
+        if(message.getText().startsWith("!")) // It's a command
+            comHandler.execute(message.getText().split(" ")[0],event.getSource().getUserId() + " " + message.getText());
+
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }
 
@@ -60,5 +64,11 @@ public class CommandController {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("content")
+    public String liffHello() {
+
+        return "hello";
     }
 }

@@ -2,15 +2,15 @@ package bookkeeping.application.command;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class RegisterCommand extends CommandTemplate{
+import java.util.List;
 
-    public RegisterCommand() {
-        CommandHandler.commandMap.put("!register", (String arguments) -> this.execute(arguments));
-    }
+
+@Component
+@CommandMapping(commandName="!register")
+public class RegisterCommand extends CommandTemplate {
 
     @Override
-    void execute(String arguments) {
+    void execute(List<String> arguments) {
         //Do action here....
     }
 
