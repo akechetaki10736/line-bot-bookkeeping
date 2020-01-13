@@ -7,6 +7,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 
 @Component
+@Slf4j
 @CommandMapping(commandName="!register")
 public class RegisterCommand extends CommandTemplate {
 
@@ -40,10 +42,8 @@ public class RegisterCommand extends CommandTemplate {
         String displayName = "";
         try {
             displayName = lineMessagingClient.getProfile(UID).get().getDisplayName();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ExecutionException  e) {
+            log.error(e.getMessage());
         }
         memberService.save(new Member(UID, displayName, Timestamp.valueOf(LocalDateTime.now())));
         List<Message> replyMessages = new ArrayList<>();

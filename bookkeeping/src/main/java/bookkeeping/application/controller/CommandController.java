@@ -70,10 +70,4 @@ public class CommandController {
             throw new RuntimeException(e);
         }
     }
-
-    @GetMapping("content")
-    public String liffHello() {
-
-        return "hello";
-    }
 }
