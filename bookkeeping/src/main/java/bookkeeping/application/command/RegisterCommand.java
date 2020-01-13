@@ -5,17 +5,18 @@ import bookkeeping.application.service.MemberService;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
 @Component
+@Slf4j
 @CommandMapping(commandName="!register")
 public class RegisterCommand extends CommandTemplate {
 
@@ -35,10 +36,8 @@ public class RegisterCommand extends CommandTemplate {
         String displayName = "";
         try {
             displayName = lineMessagingClient.getProfile(UID).get().getDisplayName();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ExecutionException  e) {
+            log.error(e.getMessage());
         }
         memberService.save(new Member(UID, displayName, Timestamp.valueOf(LocalDateTime.now())));
         lineMessagingClient.pushMessage(new PushMessage(UID, new TextMessage("Register completed")));
