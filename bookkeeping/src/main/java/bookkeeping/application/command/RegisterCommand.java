@@ -1,5 +1,6 @@
 package bookkeeping.application.command;
 
+
 import bookkeeping.application.entity.Member;
 import bookkeeping.application.messages.QuickMessageSupplier;
 import bookkeeping.application.service.MemberService;
@@ -8,6 +9,7 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,6 +52,7 @@ public class RegisterCommand extends CommandTemplate {
         replyMessages.addAll(Arrays.asList(new TextMessage("註冊成功"), new TextMessage("可以開始記帳了")));
         replyMessages.add(quickMessageSupplier.get());
         lineMessagingClient.pushMessage(new PushMessage(UID, replyMessages));
+
     }
 
 }

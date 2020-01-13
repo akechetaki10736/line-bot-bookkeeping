@@ -38,6 +38,7 @@ public class CommandController {
         this.memberService = memberService;
         this.commandHandler = commandHandler;
         this.accountingHandler = accountingHandler;
+
     }
 
     @EventMapping
@@ -48,7 +49,7 @@ public class CommandController {
             commandHandler.execute(message.getText().split(" ")[0],userId + "," + message.getText());
         if(commandHandler.statusMap.get(userId).equals("!add"))
             accountingHandler.addBill(userId, message.getText());
-
+        
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }
 
