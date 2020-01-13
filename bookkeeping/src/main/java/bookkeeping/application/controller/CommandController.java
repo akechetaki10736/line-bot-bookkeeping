@@ -1,5 +1,6 @@
 package bookkeeping.application.controller;
 
+import bookkeeping.application.accouting.AccountingHandler;
 import bookkeeping.application.command.CommandHandler;
 import bookkeeping.application.service.MemberService;
 import com.linecorp.bot.client.LineMessagingClient;
@@ -29,20 +30,24 @@ public class CommandController {
     private LineMessagingClient lineMessagingClient;
     private MemberService memberService;
     private CommandHandler commandHandler;
+    private AccountingHandler accountingHandler;
 
     @Autowired
-    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService, CommandHandler commandHandler) {
+    public CommandController(LineMessagingClient lineMessagingClient, MemberService memberService, CommandHandler commandHandler, AccountingHandler accountingHandler) {
         this.lineMessagingClient = lineMessagingClient;
         this.memberService = memberService;
         this.commandHandler = commandHandler;
+        this.accountingHandler = accountingHandler;
     }
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         TextMessageContent message = event.getMessage();
-
+        String userId = event.getSource().getUserId();
         if(message.getText().startsWith("!")) // It's a command
-            commandHandler.execute(message.getText().split(" ")[0],event.getSource().getUserId() + "," + message.getText());
+            commandHandler.execute(message.getText().split(" ")[0],userId + "," + message.getText());
+        if(commandHandler.statusMap.get(userId).equals("!add"))
+            accountingHandler.addBill(userId, message.getText());
 
         this.reply(event.getReplyToken(), new TextMessage("echo : " + message.getText()));
     }

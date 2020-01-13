@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Bill")
@@ -15,11 +16,11 @@ public class Bill {
     private String item;
     private Integer price;
     private String comment;
-    private Date billTime;
+    private Timestamp billTime;
     @EmbeddedId
     private PKOfBill pkOfBill;
 
-    public Bill( String item, Integer price, String comment, Date billTime, PKOfBill pkOfBill) {
+    public Bill( String item, Integer price, String comment, Timestamp billTime, PKOfBill pkOfBill) {
         this.item = item;
         this.price = price;
         this.comment = comment;
