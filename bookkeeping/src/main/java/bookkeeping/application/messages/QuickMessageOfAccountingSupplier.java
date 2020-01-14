@@ -12,15 +12,12 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Component
-public class QuickMessageSupplier implements Supplier<Message> {
+public class QuickMessageOfAccountingSupplier implements Supplier<Message> {
     @Override
     public Message get() {
         List<QuickReplyItem> messageOptions = Arrays.asList(
                 QuickReplyItem.builder()
-                        .action(new MessageAction("記帳", "!add"))
-                        .build(),
-                QuickReplyItem.builder()
-                        .action(new MessageAction("查帳", "!query"))
+                        .action(new MessageAction("完成記帳", "!finish"))
                         .build()
         );
 
@@ -28,7 +25,7 @@ public class QuickMessageSupplier implements Supplier<Message> {
 
         return TextMessage
                 .builder()
-                .text("請選擇要使用的功能")
+                .text("如欲離開記帳模式請選擇離開")
                 .quickReply(quickReply)
                 .build();
     }

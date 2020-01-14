@@ -10,9 +10,9 @@ import java.util.function.Consumer;
 @Slf4j
 public class CommandHandler {
     public static Map<String, Consumer<List<String>>> commandMap = new HashMap<>();
-    public Map<String, String> statusMap;
+    public static Map<String, String> statusMap = new HashMap<>();
+
     public CommandHandler() {
-        statusMap = new HashMap<>();
     }
 
     public void execute(String cmd, String arguments) {
@@ -25,7 +25,7 @@ public class CommandHandler {
             commandMap.get("Unknown").accept(argList);
         else {
             commandMap.get(cmd).accept(argList);
-            statusMap.put(userId, cmd);
+            statusMap.put(userId, cmd);//
         }
 
     }

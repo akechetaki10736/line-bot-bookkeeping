@@ -2,7 +2,7 @@ package bookkeeping.application.command;
 
 
 import bookkeeping.application.entity.Member;
-import bookkeeping.application.messages.QuickMessageSupplier;
+import bookkeeping.application.messages.QuickMessageOfFunctionsSupplier;
 import bookkeeping.application.service.MemberService;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
@@ -28,13 +28,13 @@ public class RegisterCommand extends CommandTemplate {
 
     private LineMessagingClient lineMessagingClient;
     private MemberService memberService;
-    private QuickMessageSupplier quickMessageSupplier;
+    private QuickMessageOfFunctionsSupplier quickMessageOfFunctionsSupplier;
 
     @Autowired
-    public RegisterCommand(LineMessagingClient lineMessagingClient, MemberService memberService, QuickMessageSupplier quickMessageSupplier) {
+    public RegisterCommand(LineMessagingClient lineMessagingClient, MemberService memberService, QuickMessageOfFunctionsSupplier quickMessageOfFunctionsSupplier) {
         this.lineMessagingClient = lineMessagingClient;
         this.memberService = memberService;
-        this.quickMessageSupplier = quickMessageSupplier;
+        this.quickMessageOfFunctionsSupplier = quickMessageOfFunctionsSupplier;
     }
 
     @Override
@@ -49,10 +49,16 @@ public class RegisterCommand extends CommandTemplate {
         }
         memberService.save(new Member(UID, displayName, Timestamp.valueOf(LocalDateTime.now())));
         List<Message> replyMessages = new ArrayList<>();
-        replyMessages.addAll(Arrays.asList(new TextMessage("註冊成功"), new TextMessage("可以開始記帳了")));
-        replyMessages.add(quickMessageSupplier.get());
+        replyMessages.addAll(
+                Arrays.asList(
+                        new TextMessage("註冊成功"),
+                        new TextMessage("你好，" + displayName),
+                        new TextMessage("可以開始記帳了")
+                )
+        );
+        replyMessages.add(quickMessageOfFunctionsSupplier.get());
         lineMessagingClient.pushMessage(new PushMessage(UID, replyMessages));
-
+        CommandHandler.statusMap.put(UID, "!normal");
     }
 
 }
