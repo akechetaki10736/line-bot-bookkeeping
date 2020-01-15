@@ -1,6 +1,8 @@
 package bookkeeping.application.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,13 +13,19 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "Bill")
 @Data
+@ToString(exclude = {"pkOfBill"})
 public class Bill {
 
+    @JsonIgnore
     private String item;
+    @JsonIgnore
     private Integer price;
+    @JsonIgnore
     private String comment;
+    @JsonIgnore
     private Timestamp billTime;
     @EmbeddedId
+    @JsonIgnore
     private PKOfBill pkOfBill;
 
     public Bill( String item, Integer price, String comment, Timestamp billTime, PKOfBill pkOfBill) {

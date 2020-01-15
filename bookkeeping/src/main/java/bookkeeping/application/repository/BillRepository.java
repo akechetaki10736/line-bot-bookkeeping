@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BillRepository extends JpaRepository<Bill, PKOfBill> {
-    @Query("select b from Bill b where b.pkOfBill.member.UID like :UID")
+    @Query("select b from Bill b where b.pkOfBill.member.UID like CONCAT('%', :UID, '%')")
     List<Bill> findByFK(@Param("UID") String UID);
 }

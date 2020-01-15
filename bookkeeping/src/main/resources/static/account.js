@@ -31,9 +31,11 @@ function initializeLiff(myLiffId) {
             liff.getProfile().then(function(profile) {
                 $('#UID').html(profile.userId);
                 $.get("query",
-                    {UID: profile.userId, session : $('#sskey')},
+                    {UID: profile.userId, session : $('#sskey').text()},
                     function (data) {
-                        alert("Data Loaded: " + data);
+                        alert(data.item);
+                        $('#test').html(data);
+
                     });
                 $('#Name').html(profile.displayName);
             }).catch(function(error) {
