@@ -1,7 +1,5 @@
 $(function() {
     const useNodeJS = false;   // if you are not using a node server, set this value to false
-    const defaultLiffId = "1653663188-x3zv4LO8";   // change the default LIFF value if you are not using a node server
-
     // DO NOT CHANGE THIS
     let myLiffId = "";
 
@@ -32,8 +30,8 @@ function initializeLiff(myLiffId) {
             $('#deviceOS').html(liff.getOS());
             liff.getProfile().then(function(profile) {
                 $('#UID').html(profile.userId);
-                $.get("https://3f49adcb.ngrok.io/query",
-                    {UID: profile.userId},
+                $.get("query",
+                    {UID: profile.userId, session : $('#sskey')},
                     function (data) {
                         alert("Data Loaded: " + data);
                     });
