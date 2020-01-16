@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -14,15 +15,17 @@ import java.sql.Timestamp;
 @Table(name = "Bill")
 @Data
 @ToString(exclude = {"pkOfBill"})
-public class Bill {
 
-    @JsonIgnore
+public class Bill implements Serializable {
+    private static final long serialVersionUID = 187670321407859561L;
+
+//    @JsonIgnore
     private String item;
-    @JsonIgnore
+//    @JsonIgnore
     private Integer price;
-    @JsonIgnore
+//    @JsonIgnore
     private String comment;
-    @JsonIgnore
+//    @JsonIgnore
     private Timestamp billTime;
     @EmbeddedId
     @JsonIgnore

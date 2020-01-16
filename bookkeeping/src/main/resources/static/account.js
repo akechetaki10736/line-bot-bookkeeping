@@ -31,19 +31,30 @@ function initializeLiff(myLiffId) {
             liff.getProfile().then(function(profile) {
                 $('#UID').html(profile.userId);
                 $.get("query",
-                    {UID: profile.userId, session : $('#sskey').text()},
-                    function (data) {
-                        alert(data.item);
-                        $('#test').html(data);
+                    {UID: "U6545f9db35efe7f605d2cf5f9c771a81", session : $('#sskey').text()},
+                    function (bill) {
+
+                        alert(JSON.parse(bill));
+                        $('#test').html(JSON.parse(bill));
 
                     });
                 $('#Name').html(profile.displayName);
             }).catch(function(error) {
                 alert('Error getting profile: ' + error);
+                $.get("query",
+                    {UID: "U6545f9db35efe7f605d2cf5f9c771a81", session : $('#sskey').text()},
+                    function (bill) {
+
+                        alert(JSON.stringify(bill));
+                        $('#test').html(JSON.stringify(bill));
+
+                    });
+                // $('#Name').html(profile.displayName);
             });
         })
         .catch((err) => {
 			alert('liff sdk init error! err : ' + err);
+
         });
 }
 

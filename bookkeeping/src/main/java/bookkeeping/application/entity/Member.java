@@ -7,22 +7,24 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Data
 
-public class Member {
+public class Member implements Serializable {
+    private static final long serialVersionUID = -1410032090632560344L;
     @Id
-    @JsonIgnore
+//    @JsonIgnore
     private String UID;
-    @JsonIgnore
+//    @JsonIgnore
     private String nickname;
-    @JsonIgnore
+//    @JsonIgnore
     private Timestamp joinTimestamp;
     @OneToMany(mappedBy = "pkOfBill.member")
-    @JsonIgnore
+//    @JsonIgnore
     private List<Bill> bills;
 
 

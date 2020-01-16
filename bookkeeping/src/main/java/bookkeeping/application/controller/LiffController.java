@@ -47,7 +47,7 @@ public class LiffController {
 
     @GetMapping("/query")
     @ResponseBody
-    public String test(@RequestParam String UID, @RequestParam String session) {
+    public List<Bill> test(@RequestParam String UID, @RequestParam String session) {
         log.warn(UID);
         List<Bill> billList = new ArrayList<>();
         if(hash.contains(session)) {
@@ -58,6 +58,6 @@ public class LiffController {
             hash.remove(session);
 
         }
-        return billList.get(0).toString();
+        return billList;
     }
 }
