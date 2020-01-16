@@ -35,10 +35,5 @@ public class FinishCommand extends CommandTemplate {
         directions.add(new TextMessage("離開記帳模式"));
         directions.add(quickMessageOfFunctionsSupplier.get());
         lineMessagingClient.pushMessage(new PushMessage(UID, directions));
-
-
-
-
-
     }
 }
