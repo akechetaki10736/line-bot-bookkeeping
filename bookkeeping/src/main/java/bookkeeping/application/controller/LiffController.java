@@ -50,13 +50,11 @@ public class LiffController {
     public List<Bill> test(@RequestParam String UID, @RequestParam String session) {
         log.warn(UID);
         List<Bill> billList = new ArrayList<>();
+
         if(hash.contains(session)) {
             billList = billService.findByFK(UID);
-            log.warn(billList.get(0).getItem());
-            log.warn(billList.get(0).toString());
-            log.warn(String.valueOf(billList.size()));
+            log.info(String.valueOf(billList.size()));
             hash.remove(session);
-
         }
         return billList;
     }
