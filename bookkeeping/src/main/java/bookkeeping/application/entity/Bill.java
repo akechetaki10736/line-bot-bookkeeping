@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Bill")
@@ -22,12 +22,12 @@ public class Bill implements Serializable {
     private String item;
     private Integer price;
     private String comment;
-    private Timestamp billTime;
+    private Date billTime;
     @EmbeddedId
     @JsonIgnore
     private PKOfBill pkOfBill;
 
-    public Bill( String item, Integer price, String comment, Timestamp billTime, PKOfBill pkOfBill) {
+    public Bill( String item, Integer price, String comment, Date billTime, PKOfBill pkOfBill) {
         this.item = item;
         this.price = price;
         this.comment = comment;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,28 +15,41 @@
 <body>
 
 <div class="container">
-    <form>
+    <form method="post" th:action="@{/bookkeeping}" th:object="${bill}">
         <div class="form-group">
             <label for="exampleFormControlSelect1">項目</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select class="form-control" id="exampleFormControlSelect1" th:field="${bill.item}">
+                <option value="飲食">飲食</option>
+                <option value="日常用品">日常用品</option>
+                <option value="交通">交通</option>
+                <option value="水電瓦斯">水電瓦斯</option>
+                <option value="電話網路">電話網路</option>
+                <option value="服飾">服飾</option>
+                <option value="娛樂">娛樂</option>
+                <option value="美容美髮">美容美髮</option>
+                <option value="交際">交際</option>
+                <option value="學習">學習</option>
+                <option value="保險">保險</option>
+                <option value="稅金">稅金</option>
+                <option value="醫療">醫療</option>
             </select>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">金額</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="金額">
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="金額" th:field="${bill.price}">
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">備註</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="${bill.comment}"></textarea>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">消費日期</label>
-            <input class="datepicker">
+            <input class="datepicker" th:field="${bill.billTime}">
+            <input type="hidden" name="sessionKey" th:value="${sessionKey}">
+        </div>
+        <input type="hidden">
+        <div class="form-group">
+            <input class="btn btn-outline-success" type="submit">
         </div>
     </form>
 </div>
@@ -52,7 +65,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script>
     $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd'
+        dateFormat: 'yy-mm-dd'
     });
 </script>
 </body>

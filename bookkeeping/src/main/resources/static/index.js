@@ -29,7 +29,7 @@ $(function() {
                 $('#isLoggedIn').html(liff.isLoggedIn());
                 $('#deviceOS').html(liff.getOS());
                 liff.getProfile().then(function(profile) {
-                    $('#UID').html(profile.userId);
+                    $('#UID').val(profile.userId);
                     $('#Name').html(profile.displayName);
                 }).catch(function(error) {
                     alert('Error getting profile: ' + error);

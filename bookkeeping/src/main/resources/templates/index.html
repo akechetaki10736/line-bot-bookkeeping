@@ -37,8 +37,11 @@
             <td id="isLoggedIn" class="textLeft"></td>
         </tr>
     </table>
-    <a href="/bookkeeping" class="btn btn-outline-primary" role="button" aria-pressed="true">記帳</a>
-    <a href="/personalAccount" class="btn btn-outline-info" role="button" aria-pressed="true">查帳</a>
+    <form method="post">
+        <input id="UID" type="hidden" name="UID">
+        <input type="submit" formaction="/directToBookkeeping" class="btn btn-outline-primary" role="button" aria-pressed="true" value="記帳"/>
+        <input type="submit" formaction="/directToPersonalAccount" class="btn btn-outline-info" role="button" aria-pressed="true" value="查帳"/>
+    </form>
 </div>
 <p></p>
 

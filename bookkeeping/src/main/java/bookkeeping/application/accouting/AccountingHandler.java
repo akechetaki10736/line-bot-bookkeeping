@@ -40,35 +40,35 @@ public class AccountingHandler {
         this.quickMessageOfAccountingSupplier = quickMessageOfAccountingSupplier;
     }
 
-    public void addBill(String UID, String accountMessage){
-
-
-        List<String> columnsOfBill = Arrays.asList(accountMessage.split("/"));
-        Member currentMember = null;
-        String billTime = columnsOfBill.get(3) + " 00:00:00";
-
-        if(memberService.findById(UID).isPresent())
-            currentMember = memberService.findById(UID).get();
-//        else {
-//            lineMessagingClient.pushMessage(new PushMessage(UID, new TextMessage("請先輸入「!register」註冊")));
-//            return;
-//        }
-            PKOfBill pkOfBill = new PKOfBill(currentMember, Timestamp.valueOf(LocalDateTime.now()));
-
-        Bill bill = new Bill(
-                columnsOfBill.get(0),
-                Integer.parseInt(columnsOfBill.get(1)),
-                columnsOfBill.get(2),
-                Timestamp.valueOf(billTime),
-                pkOfBill
-        );
-
-        billService.save(bill);
-        List<Message> directions = new ArrayList<>();
-        directions.add(new TextMessage("紀錄成功"));
-        directions.add(quickMessageOfAccountingSupplier.get());
-        lineMessagingClient.pushMessage(new PushMessage(UID, directions));
-
-    }
+//    public void addBill(String UID, String accountMessage){
+//
+//
+//        List<String> columnsOfBill = Arrays.asList(accountMessage.split("/"));
+//        Member currentMember = null;
+//        String billTime = columnsOfBill.get(3) + " 00:00:00";
+//
+//        if(memberService.findById(UID).isPresent())
+//            currentMember = memberService.findById(UID).get();
+////        else {
+////            lineMessagingClient.pushMessage(new PushMessage(UID, new TextMessage("請先輸入「!register」註冊")));
+////            return;
+////        }
+//            PKOfBill pkOfBill = new PKOfBill(currentMember, Timestamp.valueOf(LocalDateTime.now()));
+//
+//        Bill bill = new Bill(
+//                columnsOfBill.get(0),
+//                Integer.parseInt(columnsOfBill.get(1)),
+//                columnsOfBill.get(2),
+//                Timestamp.valueOf(billTime),
+//                pkOfBill
+//        );
+//
+//        billService.save(bill);
+//        List<Message> directions = new ArrayList<>();
+//        directions.add(new TextMessage("紀錄成功"));
+//        directions.add(quickMessageOfAccountingSupplier.get());
+//        lineMessagingClient.pushMessage(new PushMessage(UID, directions));
+//
+//    }
 
 }

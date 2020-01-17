@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 
 @Embeddable
 @Data
-
 public class PKOfBill implements Serializable {
     private static final long serialVersionUID = -5581303592163117516L;
     @ManyToOne

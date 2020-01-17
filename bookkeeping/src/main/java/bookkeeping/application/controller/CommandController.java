@@ -9,6 +9,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
@@ -49,8 +50,8 @@ public class CommandController {
         String userId = event.getSource().getUserId();
         if(message.getText().startsWith("!")) // It's a command
             commandHandler.execute(message.getText().split(" ")[0],userId + "," + message.getText());
-        if(CommandHandler.statusMap.get(userId).equals("!add"))
-            accountingHandler.addBill(userId, message.getText());
+//        if(CommandHandler.statusMap.get(userId).equals("!add"))
+//            accountingHandler.addBill(userId, message.getText());
 
 //        this.reply(event.getReplyToken(), new TextMessage(message.getText()));
     }
@@ -86,8 +87,8 @@ public class CommandController {
         }
     }
 
-    @GetMapping("/content")
-    public String getIndexHTML() {
-        return "index";
+    @EventMapping
+    public void handlePostbackEvent(PostbackEvent event){
+
     }
 }
