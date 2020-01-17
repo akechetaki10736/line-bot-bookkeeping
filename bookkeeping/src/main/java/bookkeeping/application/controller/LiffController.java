@@ -3,7 +3,6 @@ package bookkeeping.application.controller;
 import bookkeeping.application.entity.Bill;
 import bookkeeping.application.service.BillService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.StringMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,6 @@ public class LiffController {
     @Value("${pageid}")
     private String pageid;
 
-
     private Set<String> hash;
 
     public LiffController(BillService billService) {
@@ -33,7 +31,21 @@ public class LiffController {
 
     @GetMapping("/demo")
     public String getIndexHTML() {
+        return "index2";
+    }
+
+    @GetMapping("/index")
+    public String getIndex(Model model){
+        String sessionKey = UUID.randomUUID().toString();
+        hash.add(sessionKey);
+        model.addAttribute("requestId", sessionKey);
+        model.addAttribute("pageid", pageid);
         return "index";
+    }
+
+    @GetMapping("/bookkeeping")
+    public String getBookkeeping(Model model){
+        return "bookkeeping";
     }
 
     @GetMapping("/personalAccount")
@@ -58,4 +70,6 @@ public class LiffController {
         }
         return billList;
     }
+
+
 }

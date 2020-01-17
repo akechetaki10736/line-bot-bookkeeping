@@ -19,13 +19,9 @@ import java.sql.Timestamp;
 public class Bill implements Serializable {
     private static final long serialVersionUID = 187670321407859561L;
 
-//    @JsonIgnore
     private String item;
-//    @JsonIgnore
     private Integer price;
-//    @JsonIgnore
     private String comment;
-//    @JsonIgnore
     private Timestamp billTime;
     @EmbeddedId
     @JsonIgnore
