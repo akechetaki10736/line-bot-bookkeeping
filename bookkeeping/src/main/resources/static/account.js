@@ -33,7 +33,7 @@ function initializeLiff(myLiffId) {
                 $("#testP").jqGrid({
                     url:"query",
                     datatype: "json",
-                    postData:{UID: profile.userId, session : $('#sskey').text()},
+                    postData:{session : $('#sskey').text()},
                     colNames:['Item', 'Price', 'Comment', 'Timestamp'],
                     colModel:[
                         {name:'item', width:65},

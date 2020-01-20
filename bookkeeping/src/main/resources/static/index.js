@@ -28,11 +28,13 @@ $(function() {
                 $('#isInClient').html(liff.isInClient());
                 $('#isLoggedIn').html(liff.isLoggedIn());
                 $('#deviceOS').html(liff.getOS());
+                $('#accessToken').val(liff.getAccessToken());
                 liff.getProfile().then(function(profile) {
                     $('#UID').val(profile.userId);
                     $('#Name').html(profile.displayName);
                 }).catch(function(error) {
                     alert('Error getting profile: ' + error);
+                    alert(liff.getAccessToken());
                 });
             })
             .catch((err) => {
