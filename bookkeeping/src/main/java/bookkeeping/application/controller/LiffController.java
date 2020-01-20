@@ -19,9 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @Slf4j
@@ -55,10 +57,29 @@ public class LiffController {
         return "index";
     }
 
+    @PostMapping("/register")
+    public String register(Model model, @RequestBody String requestBody) throws Exception {
+        List<String> tokenList = Arrays.asList(requestBody.split("&"));
+        String UIDAfterProcess = tokenList.get(0).substring("UID=".length());
+        String nickName = lineMessagingClient.getProfile(UIDAfterProcess).get().getDisplayName();
+        memberService.save(new Member(UIDAfterProcess, nickName, Timestamp.valueOf(LocalDateTime.now())));
+        return getIndex(model);
+    }
+
     @PostMapping("/directToBookkeeping")
-    public String getBookkeeping(Model model, @RequestBody String UID){
+    public String getBookkeeping(Model model, @RequestBody String requestBody) throws Exception {
         String sessionKey = UUID.randomUUID().toString();
-        String UIDAfterProcess = UID.substring(4);
+        List<String> tokenList = new ArrayList<>();
+        tokenList.addAll(Arrays.asList(requestBody.split("&")));
+        String UIDAfterProcess = tokenList.get(0).substring("UID=".length());
+        String AccessTokenAfterProcess = tokenList.get(1).substring("accessToken=".length());
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("https://api.line.me/v2/profile").addHeader("Authorization","Bearer " + AccessTokenAfterProcess).build();
+        Response response = okHttpClient.newCall(request).execute();
+        if(!response.body().string().contains(UIDAfterProcess))
+            return "index";
+
         hash.put(sessionKey, UIDAfterProcess);
         log.info(UIDAfterProcess);
         Bill bill = new Bill();
@@ -106,7 +127,16 @@ public class LiffController {
         return getIndex(model);
     }
 
+    @GetMapping("/checkMemberStatus")
+    @ResponseBody
+    public Boolean checkMemberStatus(@RequestParam String UID){
+        log.info(UID);
+        Boolean isRegistered = false;
+        if (memberService.findById(UID).isPresent())
+            isRegistered = true;
 
+        return isRegistered;
+    }
 
 
     @GetMapping("/query")

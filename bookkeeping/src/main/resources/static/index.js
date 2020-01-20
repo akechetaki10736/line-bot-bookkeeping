@@ -32,6 +32,7 @@ $(function() {
                 liff.getProfile().then(function(profile) {
                     $('#UID').val(profile.userId);
                     $('#Name').html(profile.displayName);
+                    checkMember(profile.userId);
                 }).catch(function(error) {
                     alert('Error getting profile: ' + error);
                     alert(liff.getAccessToken());
@@ -40,6 +41,25 @@ $(function() {
             .catch((err) => {
                 alert('liff sdk init error! err : ' + err);
             });
+
+
+    }
+
+    function checkMember(uid) {
+        const UID = uid;
+        $.get({
+            url: "/checkMemberStatus",
+            data: {UID: UID},
+            success: function (status) {
+                if(status){
+                    $('#registerButton').val("已是會員");
+                    $('#registerButton').prop('disabled', true);
+                } else {
+                    $('#accountingButton').prop('disabled', true);
+                    $('#queryButton').prop('disabled', true);
+                }
+            },
+        });
     }
 
 });

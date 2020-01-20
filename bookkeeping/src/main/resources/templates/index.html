@@ -40,8 +40,9 @@
     <form method="post">
         <input id="UID" type="hidden" name="UID">
         <input id="accessToken" type="hidden" name="accessToken">
-        <input type="submit" formaction="/directToBookkeeping" class="btn btn-outline-primary" role="button" aria-pressed="true" value="記帳"/>
-        <input type="submit" formaction="/directToPersonalAccount" class="btn btn-outline-info" role="button" aria-pressed="true" value="查帳"/>
+        <input id="registerButton" type="submit" formaction="/register" class="btn btn-outline-success" role="button" aria-pressed="true" value="註冊"/>
+        <input id="accountingButton" type="submit" formaction="/directToBookkeeping" class="btn btn-outline-primary" role="button" aria-pressed="true" value="記帳"/>
+        <input id="queryButton" type="submit" formaction="/directToPersonalAccount" class="btn btn-outline-info" role="button" aria-pressed="true" value="查帳"/>
     </form>
 </div>
 <p></p>
